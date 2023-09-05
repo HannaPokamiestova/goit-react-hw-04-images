@@ -4,7 +4,7 @@ import { FcSearch } from 'react-icons/fc';
 
 export const SearchHeader = styled.header`
   width: 100vw;
-  background-color: #2196f3;
+  background-color: #bb86fc;
   position: fixed;
   left: 0px;
   top: 0px;

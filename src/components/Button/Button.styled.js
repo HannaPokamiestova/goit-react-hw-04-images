@@ -2,10 +2,10 @@ import styled from '@emotion/styled';
 export const LoadButton = styled.button`
   display: block;
   margin: 40px auto;
-  height: 40px;
-  width: 150px;
+  height: 60px;
+  width: 200px;
   padding: 8px;
-  background-color: #2196f3;
+  background-color: #bb86fc;
   border-radius: 4px;
   border: 2px solid #fff;
   color: #fff;
@@ -21,6 +21,6 @@ export const LoadButton = styled.button`
   :focus {
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
     background-color: #fff;
-    color: #2196f3;
+    color: #bb86fc;
   }
 `;
