@@ -1,41 +1,40 @@
-import React, { Component } from 'react';
+import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { ModalBackdrop, ModalContet } from './Modal.styled';
 import { createPortal } from 'react-dom';
 
 const modalRoot = document.querySelector('#modal-root');
 
-export class Modal extends Component {
-  static propTypes = {
-    children: PropTypes.node.isRequired,
-    onClose: PropTypes.func.isRequired,
-  };
+export const Modal = ({ children, onClose }) => {
+  useEffect(() => {
+    const hendelKeyDown = e => {
+      if (e.code === 'Escape') {
+        onClose();
+      }
+    };
 
-  componentDidMount() {
-    window.addEventListener('keydown', this.hendelKeyDown);
-  }
+    window.addEventListener('keydown', hendelKeyDown);
 
-  componentWillUnmount() {
-    window.removeEventListener('keydown', this.hendelKeyDown);
-  }
+    return () => {
+      window.removeEventListener('keydown', hendelKeyDown);
+    };
+  }, [onClose]);
 
-  hendelKeyDown = e => {
-    if (e.code === 'Escape') {
-      this.props.onClose();
-    }
-  };
-  hendleBackdropClick = e => {
+  const hendleBackdropClick = e => {
     if (e.target === e.currentTarget) {
-      this.props.onClose();
+      onClose();
     }
   };
 
-  render() {
-    return createPortal(
-      <ModalBackdrop onClick={this.hendleBackdropClick}>
-        <ModalContet>{this.props.children}</ModalContet>
-      </ModalBackdrop>,
-      modalRoot
-    );
-  }
-}
+  return createPortal(
+    <ModalBackdrop onClick={hendleBackdropClick}>
+      <ModalContet>{children}</ModalContet>
+    </ModalBackdrop>,
+    modalRoot
+  );
+};
+
+Modal.propTypes = {
+  children: PropTypes.node.isRequired,
+  onClose: PropTypes.func.isRequired,
+};
